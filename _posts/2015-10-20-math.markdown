@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Neural Operator\: Graph Kernel Network for Partial Differential Equations
+title: Neural Operator <span>&#58;</span> Graph Kernel Network for Partial Differential Equations
 date: 2020-03-20 11:59:00-0400
 description: an example of a blog post with some math
 ---
