@@ -7,8 +7,9 @@ description:  <a href="http://cms.caltech.edu"> CMS, Caltech</a>.
 profile:
   align: right
   image: prof_pic.jpg
-  address: False
-    
+  address: 
+    <p>1200 E California Blvd</p>
+    <p>Pasadena, CA 91106</p>
 
 news: False
 social: False
