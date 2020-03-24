@@ -20,5 +20,5 @@ Recently I have been working on developing graph neural networks for partial dif
 
 I was an undergrad at Washington University in St. Louis, 
 double-majoring in computer science and mathematics, 
-privileged to be advised by [Brendan Juba](https://www.cse.wustl.edu/~bjuba/) and [Xiang Tang](https://www.math.wustl.edu/~xtang/).
+I was privileged to be advised by [Brendan Juba](https://www.cse.wustl.edu/~bjuba/) and [Xiang Tang](https://www.math.wustl.edu/~xtang/).
 
