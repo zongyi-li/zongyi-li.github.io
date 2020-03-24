@@ -1,16 +1,18 @@
 ---
 layout: about
 permalink: /
-title: <strong>Your</strong> Name
-description: <a href="">Affiliations</a>. Address. Contacts. Moto. Etc.
+title: <strong>Zongyi Li</strong>
+description:  <a href="http://cms.caltech.edu">CMS, Caltech</a>.
 
 profile:
-  align: right
-  image: prof_pic.jpg
+  align: left
+  image: my-photo.jpg
+  <!--
   address: >
     <p>555 your office number</p>
     <p>123 your address street</p>
     <p>Your City, State 12345</p>
+   --> 
 
 news: true
 social: true
