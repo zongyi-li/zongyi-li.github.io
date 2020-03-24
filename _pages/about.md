@@ -19,6 +19,6 @@ I have a board interest in machine learning, theoretical computer science, and a
 Recently I have been working on developing graph neural networks for partial differential equations.   
 
 I was an undergrad at Washington University in St. Louis, 
-double-majoring in computer science and mathematics, 
+double-majoring in computer science and mathematics. 
 I was privileged to be advised by [Brendan Juba](https://www.cse.wustl.edu/~bjuba/) and [Xiang Tang](https://www.math.wustl.edu/~xtang/).
 
