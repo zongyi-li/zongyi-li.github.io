@@ -5,8 +5,8 @@ title: <strong>Zongyi Li</strong>
 description:  <a href="http://cms.caltech.edu">CMS, Caltech</a>.
 
 profile:
-  align: left
-  image: my-photo.jpg
+  align: right
+  image: prof_pic.jpg
   <!--
   address: >
     <p>555 your office number</p>
