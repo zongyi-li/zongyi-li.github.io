@@ -104,7 +104,7 @@ In practice, the training data is solved numerically or observed in experiments.
 In other words, functions $$a_j$$ and $$u_j$$ come with discretization.  
 Let $$P_K = \{x_1,\dots,x_K\} \subset D$$ be a $$K$$-point discretization of the domain
 $$D$$ and assume we have observations $$a_j|_{P_K}, u_j|_{P_K} $$, for a finite
-collection  of input-output pairs indexed by $j$. 
+collection  of input-output pairs indexed by $$j$$. 
 We will show how to learn a discretization-invariant mapping based on discretized data.
 
 

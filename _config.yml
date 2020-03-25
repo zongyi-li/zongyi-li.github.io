@@ -44,8 +44,8 @@ google_analytics: UA-XXXXXXXXX # out your google-analytics code
 # -----------------------------------------------------------------------------
 # Blog
 # -----------------------------------------------------------------------------
-blog_name: The Invariant among the Variants
-blog_description: The blog for my research interests
+blog_name: Among the variants and the invariants
+blog_description: A blog for my research projects
 
 # Pagination
 paginate: 4
