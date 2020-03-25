@@ -1,15 +1,59 @@
 ---
 layout: post
-title: Neural Operator $$:$$ Graph Kernel Network for Partial Differential Equations
-date: 2020-03-20 11:59:00-0400
-description: an example of a blog post with some math
+title: Graph Kernel Network for PDEs
+date: 2020-03-24 11:59:00-0400
+description: Use graph networks to learn the kernel and solve partial differential equations
 ---
-This theme supports rendering beautiful math in inline and display modes using [KaTeX](https://khan.github.io/KaTeX/) engine. You just need to surround your math expression with `$$`, like `$$ E = mc^2 $$`. If you leave it inside a paragraph, it will produce an inline expression, just like $$ E = mc^2 $$.
+>The blog takes about 10 minutes to read.
+It introduces our recent work that uses graph neural networks to learn 
+**mappings between function spaces** and solve partial differential equations. 
+You can also check out the [paper](https://arxiv.org/abs/2003.03485).
+Background of graph neural networks (GNN) and partial differential equations (PDE) is preferred.
 
-To use display mode, again surround your expression with `$$` and place it as a separate paragraph. Here is an example:
+### Introduction
 
-$$
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-$$
+A wide range of important engineering and physical problems are governed by 
+[PDEs](https://en.wikipedia.org/wiki/Partial_differential_equation). 
+Over the past few decades, significant progress has been made on formulating 
+and solving  the governing PDEs in many scientific fields 
+from micro-scale problems (e.g., quantum and molecular dynamics) to 
+macro-scale applications (e.g., civil and marine engineering). 
 
-Note that [KaTeX](https://khan.github.io/KaTeX/) is work in progress, so it does not support the full range of math expressions as, say, [MathJax](https://www.mathjax.org/). Yet, it is [blazing fast](http://www.intmath.com/cg5/katex-mathjax-comparison.php).
+Despite the success in the application of PDEs to solve real-life problems, 
+two significant challenges remain. 
+- First, identifying/formulating the underlying PDEs appropriate for 
+the modeling of a specific problem usually requires extensive prior knowledge 
+in the corresponding field, which is then combined with universal conservation laws 
+to design a predictive model; 
+for example, modeling the deformation and fracture of solid structures 
+requires detailed knowledge on the relationship between stress and strain in the constituent material. 
+For complicated systems such as living cells, 
+acquiring such knowledge is often elusive 
+and formulating the governing PDE for these systems remains prohibitive; 
+the possibility of learning such knowledge from data may revolutionize such fields. 
+- Second, solving complicated non-linear PDE systems 
+(such as those arising in turbulence and plasticity) is computationally demanding; 
+again the possibility of using instances of data from such computations 
+to design fast approximate solvers holds great potential. 
+
+In both these challenges, if neural networks are to play a role in exploiting 
+the increasing volume of available data, 
+then there is a need to formulate them so that they are well-adapted 
+to mappings from function space to function space.
+
+### Fixed discretization is both good and bad.
+
+PDEs are, unfortunately, hard. 
+In general we cannot hope to find an analytic solutions to PDEs. 
+Hundred years of effort has been made to develop numerical solvers 
+such as finite element method and finite difference method.
+
+<div class="img_row">
+    <img class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
+</div>
+<div class="col three caption">
+Three examples of discretization. 
+The left one is a regular grid used in finite difference method;
+the middle one is a trianglized grid used in finite element method;
+the right one is a cylinder mesh for real-world airfoil problem.
+</div>
