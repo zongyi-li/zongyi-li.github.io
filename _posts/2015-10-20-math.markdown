@@ -49,7 +49,7 @@ Hundred years of effort has been made to develop numerical solvers
 such as finite element method and finite difference method.
 
 <div class="img_row">
-    <img height="200px" width="700px" class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
+    <img  class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
 </div>
 <div class="col three caption">
 Three examples of discretization. 
@@ -88,16 +88,6 @@ Consider the standard second order elliptic PDE
 $$ - \nabla \cdot (a(x) \nabla u(x))  = f(x), \quad  x \in D $$
 
 $$ u(x) = 0, \quad x \in \partial D $$
-
-for some bounded, open domain $$D \subset \R^d$$ and a fixed source function
-$$f$$. This equation is prototypical of PDEs arising in
-numerous applications including hydrology  and elasticity. 
-For a given function $$a$$, 
-the equation has a unique weak solution $$u$$ 
-and therefore we can define the solution operator $$\F_{true}$$
-as the map from function to function $$a \mapsto u$$. 
-
-
 
 
 
