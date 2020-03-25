@@ -49,7 +49,7 @@ Hundred years of effort has been made to develop numerical solvers
 such as finite element method and finite difference method.
 
 <div class="img_row">
-    <img width="300px" class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
+    <img height="200px" width="700px" class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
 </div>
 <div class="col three caption">
 Three examples of discretization. 
@@ -57,3 +57,24 @@ The left one is a regular grid used in finite difference method;
 the middle one is a trianglized grid used in finite element method;
 the right one is a cylinder mesh for real-world airfoil problem.
 </div>
+
+Just like how we store images by pixels in *.PNG* and *.JPG* formats, 
+we need to discretize the domain of PDEs into some grid and solve the equation on the grid.
+It really makes the thing easier.
+
+Nevertheless, there are several drawbacks of discretization:
+- The error scales steeply with the resolution. 
+We need a high resolution to get good approximations.
+- The computation and storage also steeply scale with the resolution (i.e. the size of the grid).
+- When the equation is solved on one discretization, 
+we cannot change the discretization anymore. 
+
+*.PNG* and *.JPG* formats are good. 
+But some time maybe we want to save the images as vector images in *.EPS* or *.SVG* formats,
+so that it can be used and displayed in any context. 
+And for some images, vector image format is more convenient and efficient.
+Similarly we want to find the continuous version for PDEs, an operator that is invariant of discretization.  
+
+
+
+
