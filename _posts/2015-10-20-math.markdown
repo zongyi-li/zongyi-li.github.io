@@ -8,7 +8,7 @@ description: Use graph networks to learn the kernel and solve partial differenti
 It introduces our recent work that uses graph neural networks to learn 
 **mappings between function spaces** and solve partial differential equations. 
 You can also check out the [paper](https://arxiv.org/abs/2003.03485).
-Background of graph neural networks (GNN) and partial differential equations (PDE) is preferred.
+Background of graph neural networks (GNN) and partial differential equations (PDE) are preferred.
 
 ### Introduction
 
@@ -44,17 +44,17 @@ to mappings from function space to function space.
 ### Fixed discretization is both good and bad.
 
 PDEs are, unfortunately, hard. 
-In general we cannot hope to find an analytic solutions to PDEs. 
+In general we cannot hope to find analytic solutions to PDEs. 
 Hundred years of effort has been made to develop numerical solvers 
-such as finite element method and finite difference method.
+such as the finite element method and finite difference method.
 
 <div class="img_row">
     <img  class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
 </div>
 <div class="col three caption">
 Three examples of discretization. 
-The left one is a regular grid used in finite difference method;
-the middle one is a trianglized grid used in finite element method;
+The left one is a regular grid used in the finite difference method;
+the middle one is a triangulated grid used in the finite element method;
 the right one is a cylinder mesh for real-world airfoil problem.
 </div>
 
@@ -70,15 +70,16 @@ We need a high resolution to get good approximations.
 we cannot change the discretization anymore. 
 
 *.PNG* and *.JPG* formats are good. 
-But some time maybe we want to save the images as vector images in *.EPS* or *.SVG* formats,
+But sometimes maybe we want to save the images as vector images in *.EPS* or *.SVG* formats,
 so that it can be used and displayed in any context. 
-And for some images, vector image format is more convenient and efficient.
-Similarly we want to find the continuous version for PDEs, an operator that is invariant of discretization.  
+And for some images, the vector image format is more convenient and efficient.
+Similarly, we want to find the continuous version for PDEs, an operator that is invariant of discretization.  
 
 Furthermore, mathematically speaking, such continuous, 
 discretization-invariant format is in some sense, closer to the real, analytic solution. 
 It has an important mathematical meaning. 
-Bear the motivation in mind. Let's develop the rigorous formulation.
+Bear the motivation in mind. Let's develop a rigorous formulation.
+
 
 ### Problem Setting
 
@@ -88,6 +89,44 @@ Consider the standard second order elliptic PDE
 $$ - \nabla \cdot (a(x) \nabla u(x))  = f(x), \quad  x \in D $$
 
 $$ u(x) = 0, \quad x \in \partial D $$
+
+for some bounded, open domain $$D \subset \R^d$$ and a fixed source function
+$$f$$. This equation is prototypical of PDEs arising in
+numerous applications including hydrology  and elasticity. 
+For a given function $$a$$, 
+the equation has a unique weak solution $$u$$ 
+and therefore we can define the solution operator $$ \mathcal{F}_{true}$$
+as the map from function to function $$a \mapsto u$$. 
+
+Our goal is to learn a mapping $$\mathcal{F}$$ approximating $$ \mathcal{F}_{true}$$, 
+by using a finite collection of observations of input-output pairs 
+$$\{a_j, u_j\}_{j=1}^N$$, where each $$a_j$$ and $$u_j$$ are functions on $$D$$.
+In practice, the training data is solved numerically or observed in experiments.
+In other words, functions $$a_j$$ and $$u_j$$ come with discretization.  
+Let $$P_K = \{x_1,\dots,x_K\} \subset D$$ be a $$K$$-point discretization of the domain
+$$D$$ and assume we have observations $$a_j|_{P_K}, u_j|_{P_K} $$, for a finite
+collection  of input-output pairs indexed by $$j$$. 
+We will show how to learn a discretization-invariant mapping based on discretized data.
+
+### Kernel Formulation
+
+For a general PDE of the form
+
+$$ (\mathcal{L}_a u)(x)= f(x), \qquad x \in D\ $$
+
+$$ u(x) = 0, \quad x \in \partial D $$
+
+Under fairly general conditions on $$ \mathcal{L}_a $$, 
+we may define the Green's function $$G : D \times D \to \R$$ as the 
+unique solution to the problem 
+
+$$ \mathcal{L}_a G(x, \cdot) = \delta_x$$
+
+where $$\delta_x$$ is the delta measure on $$\R^d$$ centered at $$x$$. 
+Note that $$G$$ will depend on the coefficient $$a$$ thus we will henceforth denote it as \(G_a\). The solution to \eqref{eq:generalpde} can then be represented as
+Then operator $$\mathcal{F}_{true}$$ can be written as an integral operator of green function:
+
+$$u(x) = \int_D G_a(x,y)f(y) \: dy$$
 
 
 
