@@ -128,5 +128,27 @@ Then operator $$\mathcal{F}_{true}$$ can be written as an integral operator of g
 
 $$u(x) = \int_D G_a(x,y)f(y) \: dy$$
 
+Generally the Green's function is continuous at points $$x \neq y$$, 
+for example, when $$\mathcal{L}_a$$ is uniformly elliptic. 
+Hence it is natural to model the kernel via a neural network $$\kappa$$. 
+Just as the Green function, the kernel network $$\kappa$$ takes input $$(x,y)$$.
+Since the kernel depends on $$a$$, we let $$\kappa$$ also take input $$(a(x),a(y))$$.
+
+$$u(x) = \int_D \kappa(x,y,a(x),a(y))f(y) \: dy$$
+
+### Graph Neural Networks
+
+
+To further take the advantage of neural networks, we will approximate $$u(x)$$
+in a high-dimensional representation
+
+
+
+
+
+
+
+
+
 
 
