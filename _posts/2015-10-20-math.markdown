@@ -84,24 +84,29 @@ Bear the motivation in mind. Let's develop the rigorous formulation.
 
 Consider the standard second order elliptic PDE
 
-\begin{align}
-\begin{split}
-- \nabla \cdot (a(x) \nabla u(x))  &= f(x), \quad  x \in D \\
-u(x) &= 0, \qquad \:\: x \in \partial D
-\end{split}
-\end{align}
 
 $$ - \nabla \cdot (a(x) \nabla u(x))  = f(x), \quad  x \in D $$
-$$ u(x) &= 0, \qquad \:\: x \in \partial D $$
 
-for some bounded, open set $$D \subset \R^d$$ and a fixed function
-{\(f \in L^2(D;\R)\)}. This equation is prototypical of PDEs arising in
-numerous applications including hydrology \cite{bear2012fundamentals} and elasticity \cite{antman2005problems}. 
-For a given  \(a \in \A = L^\infty(D;\R^+) \cap L^2(D;\R^+)\), equation (\ref{eq:ellptic}) has 
-a unique weak solution \(u \in \U = H_0^1(D;\R)\) \cite{Evans} 
-and therefore we can define the solution operator \(\Ftrue\)
-as the map \(a \mapsto u\). Note that while the PDE (\ref{eq:ellptic})
-is linear, the solution operator  $\Ftrue$ is not.
+$$ u(x) = 0, \quad x \in \partial D $$
+
+for some bounded, open domain $$D \subset \R^d$$ and a fixed source function
+$$f$$. This equation is prototypical of PDEs arising in
+numerous applications including hydrology  and elasticity. 
+For a given function $$a$$, 
+the equation has a unique weak solution $$u$$ 
+and therefore we can define the solution operator $$\F_{true}$$
+as the map from function to finction $$a \mapsto u$$. 
+
+Our goal is to learn a mapping $$\F$$ approximating $$\F_{true}$$, 
+by using a finite collection of observations of input-output pairs 
+$$\{a_j, u_j\}_{j=1}^N$$, where each $$a_j$$ and $$u_j$$ are functions on $$D$$.
+In practice, the training data is solved numerically or observed in experiments.
+In other words, functions $$a_j$$ and $$u_j$$ come with discretization.  
+Let $$P_K = \{x_1,\dots,x_K\} \subset D$$ be a $$K$$-point discretization of the domain
+$$D$$ and assume we have observations $$a_j|_{P_K}, u_j|_{P_K} $$, for a finite
+collection  of input-output pairs indexed by $j$. 
+We will show how to learn a discretization-invariant mapping based on discretized data.
+
 
 
 
