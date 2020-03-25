@@ -112,18 +112,18 @@ We will show how to learn a discretization-invariant mapping based on discretize
 
 For a general PDE of the form
 
-$$ (\mathcal{L}_a u)(x)= f(x), \qquad x \in D\ $$
+$$ (\mathcal{L}_a u)(x)= f(x), \quad x \in D\ $$
 
 $$ u(x) = 0, \quad x \in \partial D $$
 
 Under fairly general conditions on $$ \mathcal{L}_a $$, 
-we may define the Green's function $$G : D \times D \to \R$$ as the 
+we may define the Green's function $$G : D \times D \to \mathbb{R}$$ as the 
 unique solution to the problem 
 
 $$ \mathcal{L}_a G(x, \cdot) = \delta_x$$
 
 where $$\delta_x$$ is the delta measure on $$\mathbb{R}^d$$ centered at $$x$$. 
-Note that $$G$$ will depend on the coefficient $$a$$ thus we will henceforth denote it as \(G_a\). 
+Note that $$G$$ will depend on the coefficient $$a$$ thus we will henceforth denote it as $$G_a$$. 
 Then operator $$\mathcal{F}_{true}$$ can be written as an integral operator of green function:
 
 $$u(x) = \int_D G_a(x,y)f(y) \: dy$$
@@ -136,19 +136,53 @@ Since the kernel depends on $$a$$, we let $$\kappa$$ also take input $$(a(x),a(y
 
 $$u(x) = \int_D \kappa(x,y,a(x),a(y))f(y) \: dy$$
 
-To do the integration, we again need some discretization. The integral is approximated by a sum:
+To do the integration, we again need some discretization. 
+The integral need to be approximated by a sum:
 
 $$u(x) = \frac{1}{K}\sum_y^K \kappa(x,y,a(x),a(y))f(y) $$
 
 ### Graph Neural Networks
 
-> Observation: the kernel integral can be viewed as an 
+> Observation: the kernel integral is equivalent to the message passing on graphs
+
+
+Message passing graph networks comprise a standard architecture employing edge features 
+(gilmer et al, 2017). 
+If we properly construct the graph on the spatial domain $$D$$ of the PDE, 
+the kernel integration can be viewed as an aggregation of messages.
+Given node features $$v_t(x) \in \mathbb{R}^{n}$$, 
+edge features $$e(x,y) \in \mathbb{R}^{n_e}$$, 
+and a graph $$G$$, the message passing neural network with averaging aggregation is
+
+$$ v_{t+1}(x) =  \sigma\Big(W v_t(x) + 
+\frac{1}{|N(x)|} \sum_{y \in N(x)} \!\kappa_{\phi}\big(e(x,y)\big) v_t(y)\Big)
+$$
+
+where $$W \in \mathbb{R}^{n \times n}$$, 
+$$N(x)$$ is the neighborhood of $x$ according to the graph, 
+$$\kappa_{\phi}\big(e(x,y)\big)$$ is a neural network 
+taking as input edge features and as output 
+a matrix in $$\mathbb{R}^{n \times n}$$. 
+Relating to our kernel formulation, $$e(x,y) = (x,y,a(x),a(y)) $$.
+
+
 
 To further take the advantage of neural networks, we will approximate $$u(x)$$
 in a high-dimensional representation
 
 
 
+### Algorithmic framework
+
+### Nystrom Approximation
+
+### Example: 1d Poisson
+
+### Example: 2d Poisson
+
+### Experiments: generalization of resolution
+
+### Experiments: comparision of benchmarks
 
 
 
