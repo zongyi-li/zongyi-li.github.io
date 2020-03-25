@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93ed68f8-23f0-44f7-a978-2944f61f6aa4" name="Default Changelist" comment="" />
+    <list default="true" id="93ed68f8-23f0-44f7-a978-2944f61f6aa4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2015-10-20-math.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2015-10-20-math.markdown" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,7 +38,7 @@
       <updated>1584930753963</updated>
       <workItem from="1584930756507" duration="23840000" />
       <workItem from="1585161759829" duration="458000" />
-      <workItem from="1585163053806" duration="4927000" />
+      <workItem from="1585163053806" duration="5628000" />
     </task>
     <task id="LOCAL-00001" summary="TRY">
       <created>1584930812084</created>
