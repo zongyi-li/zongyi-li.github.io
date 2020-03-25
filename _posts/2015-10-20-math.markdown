@@ -90,7 +90,7 @@ $$ - \nabla \cdot (a(x) \nabla u(x))  = f(x), \quad  x \in D $$
 
 $$ u(x) = 0, \quad x \in \partial D $$
 
-for some bounded, open domain $$D \subset \R^d$$ and a fixed source function
+for some bounded, open domain $$D \subset \mathbb{R}^d$$ and a fixed source function
 $$f$$. This equation is prototypical of PDEs arising in
 numerous applications including hydrology  and elasticity. 
 For a given function $$a$$, 
@@ -122,8 +122,8 @@ unique solution to the problem
 
 $$ \mathcal{L}_a G(x, \cdot) = \delta_x$$
 
-where $$\delta_x$$ is the delta measure on $$\R^d$$ centered at $$x$$. 
-Note that $$G$$ will depend on the coefficient $$a$$ thus we will henceforth denote it as \(G_a\). The solution to \eqref{eq:generalpde} can then be represented as
+where $$\delta_x$$ is the delta measure on $$\mathbb{R}^d$$ centered at $$x$$. 
+Note that $$G$$ will depend on the coefficient $$a$$ thus we will henceforth denote it as \(G_a\). 
 Then operator $$\mathcal{F}_{true}$$ can be written as an integral operator of green function:
 
 $$u(x) = \int_D G_a(x,y)f(y) \: dy$$
@@ -136,8 +136,13 @@ Since the kernel depends on $$a$$, we let $$\kappa$$ also take input $$(a(x),a(y
 
 $$u(x) = \int_D \kappa(x,y,a(x),a(y))f(y) \: dy$$
 
+To do the integration, we again need some discretization. The integral is approximated by a sum:
+
+$$u(x) = \frac{1}{K}\sum_y^K \kappa(x,y,a(x),a(y))f(y) $$
+
 ### Graph Neural Networks
 
+> Observation: the kernel integral can be viewed as an 
 
 To further take the advantage of neural networks, we will approximate $$u(x)$$
 in a high-dimensional representation
