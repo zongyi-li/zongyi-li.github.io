@@ -49,7 +49,7 @@ Hundred years of effort has been made to develop numerical solvers
 such as finite element method and finite difference method.
 
 <div class="img_row">
-    <img class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
+    <img width="300px" class="col three" src="{{ site.baseurl }}/assets/img/grids.png" alt="" title="Discretizations"/>
 </div>
 <div class="col three caption">
 Three examples of discretization. 
