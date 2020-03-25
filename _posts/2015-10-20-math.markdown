@@ -75,6 +75,33 @@ so that it can be used and displayed in any context.
 And for some images, vector image format is more convenient and efficient.
 Similarly we want to find the continuous version for PDEs, an operator that is invariant of discretization.  
 
+Furthermore, mathematically speaking, such continuous, 
+discretization-invariant format is in some sense, closer to the real, analytic solution. 
+It has an important mathematical meaning. 
+Bear the motivation in mind. Let's develop the rigorous formulation.
+
+### Problem Setting
+
+Consider the standard second order elliptic PDE
+
+\begin{align}
+\begin{split}
+- \nabla \cdot (a(x) \nabla u(x))  &= f(x), \quad  x \in D \\
+u(x) &= 0, \qquad \:\: x \in \partial D
+\end{split}
+\end{align}
+
+$$ - \nabla \cdot (a(x) \nabla u(x))  = f(x), \quad  x \in D $$
+$$ u(x) &= 0, \qquad \:\: x \in \partial D $$
+
+for some bounded, open set $$D \subset \R^d$$ and a fixed function
+{\(f \in L^2(D;\R)\)}. This equation is prototypical of PDEs arising in
+numerous applications including hydrology \cite{bear2012fundamentals} and elasticity \cite{antman2005problems}. 
+For a given  \(a \in \A = L^\infty(D;\R^+) \cap L^2(D;\R^+)\), equation (\ref{eq:ellptic}) has 
+a unique weak solution \(u \in \U = H_0^1(D;\R)\) \cite{Evans} 
+and therefore we can define the solution operator \(\Ftrue\)
+as the map \(a \mapsto u\). Note that while the PDE (\ref{eq:ellptic})
+is linear, the solution operator  $\Ftrue$ is not.
 
 
 
