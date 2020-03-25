@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Graph Kernel Network for PDEs
+title: (Under Construction) Graph Kernel Network for PDEs
 date: 2020-03-24 11:59:00-0400
 description: Use graph networks to learn the kernel and solve partial differential equations
 ---
 >The blog takes about 10 minutes to read.
 It introduces our recent work that uses graph neural networks to learn 
 **mappings between function spaces** and solve partial differential equations. 
-You can also check out the [paper](https://arxiv.org/abs/2003.03485).
+You can also check out the [paper](https://arxiv.org/abs/2003.03485) for more formal derivations.
 Background of graph neural networks (GNN) and partial differential equations (PDE) are preferred.
 
 ### Introduction
@@ -41,7 +41,7 @@ the increasing volume of available data,
 then there is a need to formulate them so that they are well-adapted 
 to mappings from function space to function space.
 
-### Fixed discretization is both good and bad.
+### Fixed discretization is both good and bad
 
 PDEs are, unfortunately, hard. 
 In general we cannot hope to find analytic solutions to PDEs. 
@@ -110,9 +110,9 @@ We will show how to learn a discretization-invariant mapping based on discretize
 
 ### Kernel Formulation
 
-For a general PDE of the form
+For a general PDE of the form:
 
-$$ (\mathcal{L}_a u)(x)= f(x), \quad x \in D\ $$
+$$ (\mathcal{L}_a u)(x)= f(x), \quad x \in D $$
 
 $$ u(x) = 0, \quad x \in \partial D $$
 
@@ -136,19 +136,70 @@ Since the kernel depends on $$a$$, we let $$\kappa$$ also take input $$(a(x),a(y
 
 $$u(x) = \int_D \kappa(x,y,a(x),a(y))f(y) \: dy$$
 
-To do the integration, we again need some discretization. 
-The integral need to be approximated by a sum:
+### As an Iterative Solver
 
-$$u(x) = \frac{1}{K}\sum_y^K \kappa(x,y,a(x),a(y))f(y) $$
+In our setting, $$f$$ is an unknown but fixed function. 
+Instead of doing the kernel convolution with $$f$$, 
+we will formulate it as an iterative solver 
+that approximated $$u$$ by $$u_t$$,
+where $$t = 0,\ldots,T$$ is the time step.
+
+The algorithm starts from an initialization $$u_0$$, 
+for which we use $$u_0(x) = (x, a(x))$$.
+At each time step $$t$$, it updates $$u_{t+1}$$ by an kernel convolution of $$u_{t}$$.
+
+$$u_{t+1}(x) = \int_D \kappa(x,y,a(x),a(y))u_{t}(x) \: dy$$
+
+It works like an implicit iteration. 
+At each iteration the algorithm solves an equation of $$u_{t}(x)$$ and $$u_{t+1}(x)$$
+by the kernel integral. $$u_T$$ will be output as the final prediction.
+
+To further take the advantage of neural networks, 
+we will lift $$u(x) \in \mathbb{R}^d$$ 
+to a high dimensional representation $$v(x) \in \mathbb{R}^n$$,
+with $$n$$ the dimension of the hidden representation.
+
+The overall algorithmic framework follow:
+
+$$v_0(x) = NN_1 (x, a(x))$$
+
+$$
+v_{t+1}(x) = \sigma\Big( W v_t(x)  
++ \int_{B(x,r)} \!\!\!\kappa_{\phi}\big(x,y,a(x),a(y)\big)
+v_t(y)\: \mathrm{d}y \Big)
+\quad \text{for } \ t=1,\ldots,T
+$$
+
+$$u(x) = NN_2 (v_T (x)) $$
+
+where $$NN_1$$ and $$NN_2$$ are two feed-forward neural networks 
+that lifts the initialization to hidden representation $$v$$
+and projects the representation back to the solution $$u$$, respective.
+$$\sigma$$ is an activation function such as ReLU.
+the additional term $$W \in \mathbb{R}^{n \times n}$$ is a linear transformation 
+that acts on $v$.
+Notice, since the kernel integration happens in the high dimensional representation,
+the output of $$\kappa_{\phi}$$ is not a scale, 
+but a linear transformation $$W\kappa_{\phi}\big(x,y,a(x),a(y)\big)\in \mathbb{R}^{n \times n}$$.
+
 
 ### Graph Neural Networks
 
+To do the integration, we again need some discretization. 
+The integral $$\int_{B(x,r)} \kappa_{\phi}\big(x,y,a(x),a(y)\big)
+v_t(y)\: \mathrm{d}y$$ need to be approximated by a sum:
+
+$$ \frac{1}{|N|}\sum_{y \in N(x)} \kappa(x,y,a(x),a(y))v_t(y) $$
+
 > Observation: the kernel integral is equivalent to the message passing on graphs
 
-
+If you are similar with graph neural network, 
+you may have already realized this formulation is the same as 
+the aggregation of messages in graph network.
 Message passing graph networks comprise a standard architecture employing edge features 
 (gilmer et al, 2017). 
-If we properly construct the graph on the spatial domain $$D$$ of the PDE, 
+
+If we properly construct graphs on the spatial domain $$D$$ of the PDE, 
 the kernel integration can be viewed as an aggregation of messages.
 Given node features $$v_t(x) \in \mathbb{R}^{n}$$, 
 edge features $$e(x,y) \in \mathbb{R}^{n_e}$$, 
@@ -159,32 +210,70 @@ $$ v_{t+1}(x) =  \sigma\Big(W v_t(x) +
 $$
 
 where $$W \in \mathbb{R}^{n \times n}$$, 
-$$N(x)$$ is the neighborhood of $x$ according to the graph, 
+$$N(x)$$ is the neighborhood of $$x$$ according to the graph, 
 $$\kappa_{\phi}\big(e(x,y)\big)$$ is a neural network 
 taking as input edge features and as output 
 a matrix in $$\mathbb{R}^{n \times n}$$. 
 Relating to our kernel formulation, $$e(x,y) = (x,y,a(x),a(y)) $$.
 
 
+<div class="img_row">
+    <img class="col three" src="{{ site.baseurl }}/assets/img/graph.png" title="Graph on the domain"/>
+</div>
+<div class="col three caption">
+</div>
 
-To further take the advantage of neural networks, we will approximate $$u(x)$$
-in a high-dimensional representation
+
+---
+
+<div align="center"> **Under Construction** </div>
+
+---
 
 
 
-### Algorithmic framework
 
 ### Nystrom Approximation
 
 ### Example: 1d Poisson
+<div class="img_row">
+    <img  class="col three" src="{{ site.baseurl }}/assets/img/nik_kernel.png" title="Kernel of 1d Poisson"/>
+</div>
+<div class="col three caption">
+</div>
 
 ### Example: 2d Poisson
+<div class="img_row">
+    <img  class="col three" src="{{ site.baseurl }}/assets/img/GKN_compare.png" title="2d Poisson"/>
+</div>
+<div class="col three caption">
+</div>
 
 ### Experiments: generalization of resolution
 
+| Resolutions |      s'=61      |  s'=121 | s'=241 |
+|----------|:--------------|:------|:-----|
+| s=16 | 0.0717 |  0.0768 | 0.0724 |
+| s=31 | 0.0726 |  0.0710 | 0.0722 |
+| s=61 | 0.0687 |  0.0728 | 0.0723 |
+| s=121 | 0.0687 |  0.0664 | 0.0685 |
+| s=241 | 0.0649 |  0.0658 | 0.0649 |
+
+<div class="img_row">
+    <img  class="col three" src="{{ site.baseurl }}/assets/img/uai_16to241.png" title="generalization of resolution"/>
+</div>
+<div class="col three caption">
+</div>
+
 ### Experiments: comparision of benchmarks
 
-
+| Networks   |      s=85      |  s'=141 | s'=211 |  s'=421 |
+|----------|:--------------|:------|:-----|:-----|
+| NN | 0.1716 |  0.1716 | 0.1716 | 0.1716 |
+| FCN | 0.0253 |  0.0493 | 0.0727 | 0.1097 |
+| PCA+NN | 0.0299 |  0.0298 | 0.0298 | 0.0299 |
+| RBM | 0.0244 |  0.0251 | 0.0255 | 0.0259 |
+| GKN | 0.0346 |  0.0332 | 0.0342 | 0.0369 |
 
 
 
