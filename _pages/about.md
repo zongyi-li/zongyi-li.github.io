@@ -13,7 +13,7 @@ news: False
 social: False
 ---
 
-I am honored to be a new PhD student with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima) 
+I am a second-year PhD student working with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima) 
 in the [CMS department](href="http://cms.caltech.edu) at Caltech. 
 I have a board interest in machine learning, theoretical computer science, and applied math.
 Recently I have been working on developing graph neural networks for partial differential equations.   
