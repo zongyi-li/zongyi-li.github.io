@@ -13,7 +13,6 @@ description: A newly proposed neural operator based on Fourier transformation.
 > [code](https://github.com/zongyi-li/fourier_neural_operator),
 >and [article](https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/).
 
-
 ![Navier-Skotes Equation](/assets/img/ns_sr_v1e-4_labelled.gif){: width="700px"}
 
 ## Operator learning
@@ -70,7 +69,7 @@ Just like neural networks consist of linear transformations and non-linear activ
 neural operators consist of linear operators and non-linear activation operators.
 
 Let $$v$$ be the input vector, $$u$$ be the output vector.
-A standard deep neural network can be written inn the form: 
+A standard deep neural network can be written in the form: 
 
 $$ u = \left(W_l \circ \sigma_l \circ \cdots \circ \sigma_1 \circ W_0 \right) v $$
 
@@ -293,9 +292,9 @@ Benchmarks for time-dependent problems (Navier-Stokes):
 
 The FNO-3D has the best performance 
 when there is sufficient data 
-($$\nu=1\mathrm{e}{-3}, N=1000$ and $\nu=1\mathrm{e}{-4}, N=10000$$). 
+($$\nu=1\mathrm{e}{-3}, N=1000$$ and $$\nu=1\mathrm{e}{-4}, N=10000$$). 
 For the configurations where the amount of data is insufficient 
-($$\nu=1\mathrm{e}{-4}, N=1000$ and $\nu=1\mathrm{e}{-5}, N=1000$$), 
+($$\nu=1\mathrm{e}{-4}, N=1000$$ and $$\nu=1\mathrm{e}{-5}, N=1000$$), 
 all methods have $$>15\%$$ error with FNO-2D achieving the lowest. 
 Note that we only present results for spatial resolution $$64 \times 64$$
 since all benchmarks we compare against are designed for this resolution. 
