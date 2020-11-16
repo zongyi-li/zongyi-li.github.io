@@ -17,6 +17,9 @@ description: A newly proposed neural operator based on Fourier transformation.
 
 ## Operator learning
 
+> Thinking in continuum gives us an advantage when dealing with PDE.
+> We want to design mesh-indepedent, resolution-invariant operators.
+
 Problems in science and engineering involve solving 
 partial differential equations (PDE) systems.
 Unfortunately, these PDEs can be very hard. 
@@ -60,9 +63,8 @@ it learns the continuous function instead of discretized vectors.
 - much faster to evaluate than any classical methods.
 -->
 
-> Thinking in continuum gives us an advantage when dealing with PDE,
-> but it's OK just to take this as an image-to-image problem,
-> and the Fourier layer as a substitute for the convolution layer.
+> Operator learning can be taken as an image-to-image problem.
+> The Fourier layer can be viewed as a substitute for the convolution layer.
 
 #### Framework of Neural Operators
 Just like neural networks consist of linear transformations and non-linear activation functions,
@@ -71,21 +73,25 @@ neural operators consist of linear operators and non-linear activation operators
 Let $$v$$ be the input vector, $$u$$ be the output vector.
 A standard deep neural network can be written in the form: 
 
-$$ u = \left(W_l \circ \sigma_l \circ \cdots \circ \sigma_1 \circ W_0 \right) v $$
+$$ u = \left(K_l \circ \sigma_l \circ \cdots \circ \sigma_1 \circ K_0 \right) v $$
 
-where $$W$$ are the linear layer or convolution layer, 
+where $$K$$ are the linear layer or convolution layer, 
 and $$\sigma$$ are the activation function such as ReLU.
 
 The neural operator shares a similar framework. 
 It's just now $$v$$ and $$u$$ are functions with different discretizations
 (say, some inputs are $$28 \times 28$$, some are $$256 \times 256$$, 
 and some are in triangular mesh).
-To deal with functions input, the linear transformation $$W$$ is formulated as an integral operator.
-Let $$x, y$$ be the points in the domain. The map $$W: v \mapsto v' $$ is parameterized as
+To deal with functions input, the linear transformation $$K$$ is formulated as an integral operator.
+Let $$x, y$$ be the points in the domain. 
 
-$$v'(x) = \int k(x,y) v(y) dy$$
+The map $$K: v_{t} \mapsto v_{t+1} $$ is parameterized as
 
-For the Fourier neural operator, we formulate $$W$$ as a convolution 
+$$v'(x) = \int \kappa(x,y) v(y) dy + W v(x)$$
+
+Where $$\kappa$$ is a kernel function and $$W$$ is the bias term.
+
+For the Fourier neural operator, we formulate $$K$$ as a convolution 
 and implement it by Fourier transformation.
 
 
@@ -109,11 +115,14 @@ As shown in the top part of the figure:
 
 ![Fourier Layer](/assets/img/fourier_layer.png){: width="700px"}
 
-It just consists of three steps:
-1. Fourier transform
-2. Linear transform on the lower Fourier modes
-3. Inverse Fourier transform
+The Fourier layer just consists of three steps:
+1. Fourier transform $$\mathcal{F}$$
+2. Linear transform on the lower Fourier modes $$R$$
+3. Inverse Fourier transform $$\mathcal{F}^{-1}$$
 
+We then add the output of the Fourier layer 
+with the bias term $$W v$$ (a linear transformation) 
+and apply the activation function $$\sigma$$.
 Simple as it is. 
 
 In practice, it's usually sufficient to only take the lower frequency modes 
@@ -158,12 +167,14 @@ and _compl_mul2d()_ is the matrix multiplication for complex numbers.
 > They are better for representing continuous functions.
 
 #### Higher frequency modes and non-periodic boundary
-The Fourier layer on its own lose higher frequency modes 
-and work only with periodic boundary conditions.
+The Fourier layer on its own loses higher frequency modes 
+and works only with periodic boundary conditions.
 However, the Fourier neural operator as a whole does not have these limitations 
 (examples shown in the experiments). 
-This is due to the activation functions and final decoder network 
-which helps to recover the higher Fourier modes and non-periodic boundary.
+The encoder-decoder structure 
+helps to recover the higher Fourier modes.
+And the bias term $$W$$ 
+helps to recover the non-periodic boundary.
 
 #### Complexity
 The Fourier layer has a quasilinear complexity. 
