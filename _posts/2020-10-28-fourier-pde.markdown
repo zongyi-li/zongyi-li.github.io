@@ -1,12 +1,12 @@
 ---
 layout: post
 title: Fourier Neural Operator
-date: 2020-11-02
+date: 2020-12-02
 description: A newly proposed neural operator based on Fourier transformation.
 ---
 >This blog takes about 10 minutes to read. 
 >It introduces the Fourier neural operator that solves a family of PDEs from scratch. 
->It learns resolution-invariant operator, 
+>It the first work that can learn resolution-invariant solution operators on Navier-Stokes equation, 
 >achieving state-of-the-art accuracy among all existing deep learning methods and 
 >up to 1000x faster than traditional solvers. 
 >Also check out the [paper](https://arxiv.org/abs/2010.08895), 
@@ -341,13 +341,21 @@ when the respective approximate posterior means are used as initial conditions.
 
 ### Conclusion
 
-- We propose a neural operator based on Fourier Transformation.
-- The method consistently outperforms all existing deep learning methods for parametric PDEs. 
+- We propose a neural operator based on Fourier Transformation. 
+It is the first work that learns the resolution-invariant solution operator 
+for the family of Navier-Stokes equation in the turbulent regime, 
+where previous graph-based neural operators do not converge.
+- By construction, the method shares the same learned network parameters 
+irrespective of the dis- cretization used on the input and output spaces. 
+It can do zero-shot super-resolution: trained on a lower resolution 
+directly evaluated on a higher resolution.
+- The proposed method consistently outperforms all existing deep learning methods for parametric PDEs. 
 It achieves error rates that are $$30\%$$ lower on Burgers' Equation, 
 $$60\%$$ lower on Darcy Flow, and $$30\%$$ lower on Navier Stokes 
 (turbulent regime with Reynolds number $$10000$$).
 - On a $$256 \times 256$$ grid, 
 the Fourier neural operator has an inference time of only $$0.005$$ 
 compared to the $$2.2s$$ of the pseudo-spectral method used to solve Navier-Stokes.
+
 
 
