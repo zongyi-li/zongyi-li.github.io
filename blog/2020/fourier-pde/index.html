@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Zongyi Li | Fourier Neural Operator</title>
+  <meta name="description" content="Zongyi's personal website.
+">
+
+  
+
+  <link rel="shortcut icon" href="/assets/img/favicon.ico">
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="canonical" href="/blog/2020/fourier-pde/">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    
+    <span class="site-title">
+        
+        <strong>Zongyi</strong> Li
+    </span>
+    
+
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      <div class="trigger">
+        <!-- About -->
+        <a class="page-link" href="/">about</a>
+
+        <!-- Blog -->
+        <a class="page-link" href="/blog/">blog</a>
+
+        <!-- Pages -->
+        
+          
+        
+          
+        
+          
+        
+          
+            <a class="page-link" href="/publications/">Publications</a>
+          
+        
+          
+            <a class="page-link" href="/teaching/">Teaching</a>
+          
+        
+          
+        
+          
+            <a class="page-link" href="/_pages/projects/"></a>
+          
+        
+
+        <!-- CV link -->
+        <!-- <a class="page-link" href="/assets/pdf/CV.pdf">vitae</a> -->
+
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Fourier Neural Operator</h1>
+    <p class="post-meta">December 2, 2020</p>
+  </header>
+
+  <article class="post-content">
+    <blockquote>
+  <p>This blog takes about 10 minutes to read. 
+It introduces the Fourier neural operator that solves a family of PDEs from scratch. 
+It the first work that can learn resolution-invariant solution operators on Navier-Stokes equation, 
+achieving state-of-the-art accuracy among all existing deep learning methods and 
+up to 1000x faster than traditional solvers. 
+Also check out the <a href="https://arxiv.org/abs/2010.08895">paper</a>, 
+<a href="https://github.com/zongyi-li/fourier_neural_operator">code</a>,
+<a href="https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/">article</a>,
+and <a href="/neural-operator">project page</a>.</p>
+</blockquote>
+
+<p><img src="/assets/img/ns_sr_v1e-4_labelled.gif" alt="Navier-Skotes Equation" width="700px" /></p>
+
+<h2 id="operator-learning">Operator learning</h2>
+
+<blockquote>
+  <p>Thinking in continuum gives us an advantage when dealing with PDE.
+We want to design mesh-indepedent, resolution-invariant operators.</p>
+</blockquote>
+
+<p>Problems in science and engineering involve solving 
+partial differential equations (PDE) systems.
+Unfortunately, these PDEs can be very hard. 
+Traditional PDE solver such as finite element methods (FEM) and finite difference methods (FDM)
+rely on discretizing the space into a very fine mesh. 
+And it can be slow and inefficient.</p>
+
+<p>In the previous <a href="/blog/2020/graph-pde/">post</a>, 
+we introduced the neural operators that use neural networks 
+to learn the solution operators for PDEs.
+That is, given the initial conditions or the boundary conditions, 
+the neural network directly output the solution, 
+kind of like an image-to-image mapping.</p>
+
+<p>The neural operator is mesh-independent,
+different from the standard deep learning methods such as CNN. 
+It can be trained on one mesh and evaluated on another. 
+By parameterizing the model in function space,
+it learns the continuous function instead of discretized vectors.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Conventional PDE solvers</th>
+      <th style="text-align: left">Neural operators</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Solve one instance</td>
+      <td style="text-align: left">Learn a family of PDE</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Require the explicit form</td>
+      <td style="text-align: left">Black-box, data-driven</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Speed-accuracy trade-off on resolution</td>
+      <td style="text-align: left">Resolution-invariant, mesh-invariant</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Slow on fine grids; fast on coarse grids</td>
+      <td style="text-align: left">Slow to train; fast to evaluate</td>
+    </tr>
+  </tbody>
+</table>
+
+<!--
+#### Conventional PDE solvers
+- solve one instance of the PDE at a time; 
+- require the explicit form of the PDE; 
+- have a speed-accuracy trade-off based on resolution; 
+- slow on fine grids but less accurate on coarse grids.
+
+#### Neural operators
+- learn a family of equations from data;
+- don't need the explicit knowledge of the equation; 
+- error rate is consistent with resolution;
+- no training needed for new equations; 
+- much faster to evaluate than any classical methods.
+-->
+
+<blockquote>
+  <p>Operator learning can be taken as an image-to-image problem.
+The Fourier layer can be viewed as a substitute for the convolution layer.</p>
+</blockquote>
+
+<h4 id="framework-of-neural-operators">Framework of Neural Operators</h4>
+<p>Just like neural networks consist of linear transformations and non-linear activation functions,
+neural operators consist of linear operators and non-linear activation operators.</p>
+
+<p>Let <script type="math/tex">v</script> be the input vector, <script type="math/tex">u</script> be the output vector.
+A standard deep neural network can be written in the form:</p>
+
+<script type="math/tex; mode=display">u = \left(K_l \circ \sigma_l \circ \cdots \circ \sigma_1 \circ K_0 \right) v</script>
+
+<p>where <script type="math/tex">K</script> are the linear layer or convolution layer, 
+and <script type="math/tex">\sigma</script> are the activation function such as ReLU.</p>
+
+<p>The neural operator shares a similar framework. 
+It’s just now <script type="math/tex">v</script> and <script type="math/tex">u</script> are functions with different discretizations
+(say, some inputs are <script type="math/tex">28 \times 28</script>, some are <script type="math/tex">256 \times 256</script>, 
+and some are in triangular mesh).
+To deal with functions input, the linear transformation <script type="math/tex">K</script> is formulated as an integral operator.
+Let <script type="math/tex">x, y</script> be the points in the domain.</p>
+
+<p>The map <script type="math/tex">K: v_{t} \mapsto v_{t+1}</script> is parameterized as</p>
+
+<script type="math/tex; mode=display">v'(x) = \int \kappa(x,y) v(y) dy + W v(x)</script>
+
+<p>Where <script type="math/tex">\kappa</script> is a kernel function and <script type="math/tex">W</script> is the bias term.</p>
+
+<p>For the Fourier neural operator, we formulate <script type="math/tex">K</script> as a convolution 
+and implement it by Fourier transformation.</p>
+
+<h2 id="fourier-layer">Fourier Layer</h2>
+<blockquote>
+  <p>The real-world images have lots of edges and shapes, 
+so CNN can capture them well with local convolution kernel.
+On the other hand, the inputs and outputs of PDEs are continuous functions.
+It is more efficient to represent them in Fourier space and do global convolution.</p>
+</blockquote>
+
+<p>There are two main motivations to use Fourier transformation.
+First, it’s fast. A full standard integration of <script type="math/tex">n</script> points has complexity <script type="math/tex">O(n^2)</script>,
+while convolution via Fourier transform is quasilinear.
+Second, it’s efficient. The inputs and outputs of PDEs are continuous functions.
+So it’s usually more efficient to represent them in Fourier space.</p>
+
+<p>The convolution in the spatial domain is equivalent to the pointwise multiplication in the Fourier domain. To implement the (global) convolution operator, 
+we first do a Fourier transform, then a linear transform, and an inverse Fourier transform,
+As shown in the top part of the figure:</p>
+
+<p><img src="/assets/img/fourier_layer.png" alt="Fourier Layer" width="700px" /></p>
+
+<p>The Fourier layer just consists of three steps:</p>
+<ol>
+  <li>Fourier transform <script type="math/tex">\mathcal{F}</script></li>
+  <li>Linear transform on the lower Fourier modes <script type="math/tex">R</script></li>
+  <li>Inverse Fourier transform <script type="math/tex">\mathcal{F}^{-1}</script></li>
+</ol>
+
+<p>We then add the output of the Fourier layer 
+with the bias term <script type="math/tex">W v</script> (a linear transformation) 
+and apply the activation function <script type="math/tex">\sigma</script>.
+Simple as it is.</p>
+
+<p>In practice, it’s usually sufficient to only take the lower frequency modes 
+and truncate out these higher frequency modes. 
+Therefore, we apply the linear transformation on the lower frequency modes
+and set the higher modes to zeros.</p>
+
+<p>Notice the activation functions shall be applied on the spatial domain. 
+They help to recover the Higher frequency modes and non-periodic boundary 
+which are left out in the Fourier layers.
+Therefore it’s necessary to the Fourier transform and its inverse at each layer.</p>
+
+<!--
+#### Implementation
+
+Here is a simple example of the 2d Fourier layer 
+based on PyTorch's fast Fourier transform _torch.rfft()_ and _torch.irfft()_:
+```python
+    def forward(self, v):
+        #1. Fourier Transform
+        v_ft = torch.rfft(v, 2, normalized=True, onesided=True)
+
+        #2. Multiply lower Fourier modes
+        out_ft = torch.zeros(v.shape[0], self.in_channels,  v.size(-2), v.size(-1)//2 + 1, 2, device=v.device)
+        out_ft[:, :, :self.modes1, :self.modes2] = compl_mul2d(v_ft[:, :, :self.modes1, :self.modes2], self.weights1)
+        out_ft[:, :, -self.modes1:, :self.modes2] = compl_mul2d(v_ft[:, :, -self.modes1:, :self.modes2], self.weights2)
+
+        #3. Inverse Fourier Transform
+        out = torch.irfft(out_ft, 2, normalized=True, onesided=True, signal_sizes=(v.size(-2), v.size(-1)))
+        return out
+```
+where the input _v_ has the shape (N,C,H,W),
+_self.weights1_ and _self.weights2_ are the weight matrices;
+_self.mode1_ and _self.mode2_ truncate the lower frequency modes;
+and _compl_mul2d()_ is the matrix multiplication for complex numbers.
+-->
+
+<p><img src="/assets/img/filters.png" alt="Navier-Skotes Equation" width="700px" /></p>
+<blockquote>
+  <p>Filters in convolution neural networks are usually local. 
+They are good to capture local patterns such as edges and shapes.
+Fourier filters are global sinusoidal functions.
+They are better for representing continuous functions.</p>
+</blockquote>
+
+<h4 id="higher-frequency-modes-and-non-periodic-boundary">Higher frequency modes and non-periodic boundary</h4>
+<p>The Fourier layer on its own loses higher frequency modes 
+and works only with periodic boundary conditions.
+However, the Fourier neural operator as a whole does not have these limitations 
+(examples shown in the experiments). 
+The encoder-decoder structure 
+helps to recover the higher Fourier modes.
+And the bias term <script type="math/tex">W</script> 
+helps to recover the non-periodic boundary.</p>
+
+<h4 id="complexity">Complexity</h4>
+<p>The Fourier layer has a quasilinear complexity. 
+Denote the number of points (pixels) <script type="math/tex">n</script> and truncating at <script type="math/tex">k_{max}</script> frequency modes.
+The multiplication has complexity <script type="math/tex">% <![CDATA[
+O(k_{max}) < O(n) %]]></script> . 
+The majority of the computational cost lies in computing the Fourier transform and its inverse. 
+General Fourier transforms have complexity <script type="math/tex">O(n^2)</script>, 
+however, since we truncate the series the complexity is in fact <script type="math/tex">O(n k_{max})</script>, 
+while the FFT has complexity <script type="math/tex">O(n \log n)</script>.</p>
+
+<h4 id="resolution-invariance">Resolution-invariance</h4>
+<p>The Fourier layers are discretization-invariant, 
+because they can learn from and evaluate functions 
+which are discretized in an arbitrary way. 
+Since parameters are learned directly in Fourier space, 
+resolving the functions in physical space simply amounts to projecting on the basis 
+of wave functions which are well-defined everywhere on the space. 
+This allows us to transfer among discretization.
+If implemented with standard FFT, then it will be restricted to uniform mesh,
+but still resolution-invariant.</p>
+
+<h2 id="experiments">Experiments</h2>
+
+<h4 id="1-burgers-equation">1. Burgers Equation</h4>
+<p>The 1-d Burgers’ equation is a non-linear PDE with various applications 
+including modeling the one-dimensional flow of a viscous fluid. It takes the form</p>
+
+<script type="math/tex; mode=display">\partial_t u(x,t) + \partial_x ( u^2(x,t)/2) = \nu \partial_{xx} u(x,t), \qquad x \in (0,1), t \in (0,1]</script>
+
+<script type="math/tex; mode=display">u(x,0) = u_0(x), \qquad \qquad \:\: x \in (0,1)</script>
+
+<p>with periodic boundary conditions where <script type="math/tex">u_0 \in L^2_{\text{per}}((0,1);\R)</script> 
+is the initial condition and <script type="math/tex">\nu \in \R_+</script> is the viscosity coefficient. 
+We aim to learn the operator mapping the initial condition to the solution 
+at time one, defined by <script type="math/tex">u_0 \mapsto u(\cdot, 1)</script> for any <script type="math/tex">r > 0</script>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Networks</th>
+      <th style="text-align: left">s=85</th>
+      <th style="text-align: left">s=141</th>
+      <th style="text-align: left">s=211</th>
+      <th style="text-align: left">s=421</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FCN</td>
+      <td style="text-align: left">0.0253</td>
+      <td style="text-align: left">0.0493</td>
+      <td style="text-align: left">0.0727</td>
+      <td style="text-align: left">0.1097</td>
+    </tr>
+    <tr>
+      <td>PCA+NN</td>
+      <td style="text-align: left">0.0299</td>
+      <td style="text-align: left">0.0298</td>
+      <td style="text-align: left">0.0298</td>
+      <td style="text-align: left">0.0299</td>
+    </tr>
+    <tr>
+      <td>RBM</td>
+      <td style="text-align: left">0.0244</td>
+      <td style="text-align: left">0.0251</td>
+      <td style="text-align: left">0.0255</td>
+      <td style="text-align: left">0.0259</td>
+    </tr>
+    <tr>
+      <td>LNO</td>
+      <td style="text-align: left">0.0520</td>
+      <td style="text-align: left">0.0461</td>
+      <td style="text-align: left">0.0445</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td>FNO</td>
+      <td style="text-align: left"><strong>0.0108</strong></td>
+      <td style="text-align: left"><strong>0.0109</strong></td>
+      <td style="text-align: left"><strong>0.0109</strong></td>
+      <td style="text-align: left"><strong>0.0098</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="2-darcy-flow">2. Darcy Flow</h4>
+
+<p>We consider the steady-state of the 2-d Darcy Flow equation 
+on the unit box which is the second order, linear, elliptic PDE</p>
+
+<script type="math/tex; mode=display">- \nabla \cdot (a(x) \nabla u(x)) = f(x) \qquad x \in (0,1)^2</script>
+
+<script type="math/tex; mode=display">u(x) = 0 \qquad \quad \:\:x \in \partial (0,1)^2</script>
+
+<p>with a Dirichlet boundary where <script type="math/tex">a \in L^\infty((0,1)^2;\R_+)</script>  is the diffusion coefficient and <script type="math/tex">f \in L^2((0,1)^2;\R)</script> is the forcing function. 
+This PDE has numerous applications including modeling the pressure of the subsurface flow, 
+the deformation of linearly elastic materials, and the electric potential in conductive materials. 
+We are interested in learning the operator mapping the diffusion coefficient to the solution, 
+ defined by <script type="math/tex">a \mapsto u</script>. 
+ Note that although the PDE is linear, the solution operator is not.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Networks</th>
+      <th style="text-align: left">s=256</th>
+      <th style="text-align: left">s=512</th>
+      <th style="text-align: left">s=1024</th>
+      <th style="text-align: left">s=2048</th>
+      <th style="text-align: left">s=4096</th>
+      <th style="text-align: left">s=8192</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FCN</td>
+      <td style="text-align: left">0.0958</td>
+      <td style="text-align: left">0.1407</td>
+      <td style="text-align: left">0.1877</td>
+      <td style="text-align: left">0.2313</td>
+      <td style="text-align: left">0.2855</td>
+      <td style="text-align: left">0.3238</td>
+    </tr>
+    <tr>
+      <td>PCA+NN</td>
+      <td style="text-align: left">0.0398</td>
+      <td style="text-align: left">0.0395</td>
+      <td style="text-align: left">0.0391</td>
+      <td style="text-align: left">0.0383</td>
+      <td style="text-align: left">0.0392</td>
+      <td style="text-align: left">0.0393</td>
+    </tr>
+    <tr>
+      <td>LNO</td>
+      <td style="text-align: left">0.0212</td>
+      <td style="text-align: left">0.0221</td>
+      <td style="text-align: left">0.0217</td>
+      <td style="text-align: left">0.0219</td>
+      <td style="text-align: left">0.0200</td>
+      <td style="text-align: left">0.0189</td>
+    </tr>
+    <tr>
+      <td>FNO</td>
+      <td style="text-align: left"><strong>0.0149</strong></td>
+      <td style="text-align: left"><strong>0.0158</strong></td>
+      <td style="text-align: left"><strong>0.0160</strong></td>
+      <td style="text-align: left"><strong>0.0146</strong></td>
+      <td style="text-align: left"><strong>0.0142</strong></td>
+      <td style="text-align: left"><strong>0.0139</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/img/fourier_error.png" alt="Benchmarks" width="700px" /></p>
+
+<p>Benchmarks for time-independent problems (Burgers and Darcy):</p>
+<ul>
+  <li>NN: a simple point-wise feedforward neural network.</li>
+  <li>RBM: the classical Reduced Basis Method (using a POD basis).</li>
+  <li>FCN: a the-state-of-the-art neural network architecture based on Fully Convolution Networks.</li>
+  <li>PCANN: an operator method using PCA as an autoencoder on both the input and output data and interpolating the latent spaces with a neural network.</li>
+  <li>GNO: the original graph neural operator.</li>
+  <li>MGNO: the multipole graph neural operator.</li>
+  <li>LNO: a neural operator method based on the low-rank decomposition of the kernel.</li>
+  <li>FNO: the newly purposed Fourier neural operator.</li>
+</ul>
+
+<h4 id="3-navier-stokes-equation">3. Navier-Stokes Equation</h4>
+
+<p>We consider the 2-d Navier-Stokes equation for a viscous, 
+incompressible fluid in vorticity form on the unit torus:</p>
+
+<script type="math/tex; mode=display">\partial_t w(x,t) + u(x,t) \cdot \nabla w(x,t) = \nu \Delta w(x,t) + f(x), \qquad x \in (0,1)^2, t \in (0,T]</script>
+
+<script type="math/tex; mode=display">\nabla \cdot u(x,t) = 0, \qquad \qquad  x \in (0,1)^2, t \in [0,T]</script>
+
+<script type="math/tex; mode=display">w(x,0) = w_0(x), \qquad \qquad \qquad  x \in (0,1)^2</script>
+
+<p>where <script type="math/tex">u</script> is the velocity field, 
+<script type="math/tex">w = \nabla \times u</script> is the vorticity, 
+<script type="math/tex">w_0</script> is the initial vorticity,<br />
+<script type="math/tex">\nu</script> is the viscosity coefficient, 
+and <script type="math/tex">f</script> is the forcing function. 
+We are interested in learning the operator mapping the vorticity up to time 10 
+to the vorticity up to some later time <script type="math/tex">T > 10</script>, 
+defined by <script type="math/tex">w|_{(0,1)^2 \times [0,10]} \mapsto w|_{(0,1)^2 \times (10,T]}</script>. 
+We experiment with the viscosities 
+<script type="math/tex">\nu = 1\mathrm{e}{-3}, 1\mathrm{e}{-4}, 1\mathrm{e}{-5}</script>,
+decreasing the final time <script type="math/tex">T</script> as the dynamic becomes chaotic.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Configs</th>
+      <th style="text-align: right">Parameters</th>
+      <th style="text-align: right">Time per epoch</th>
+      <th style="text-align: right"><script type="math/tex">\nu=1e−3</script></th>
+      <th style="text-align: right"><script type="math/tex">\nu=1e−4</script></th>
+      <th style="text-align: right"><script type="math/tex">\nu=1e−5</script></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FNO-3D</td>
+      <td style="text-align: right">6,558,537</td>
+      <td style="text-align: right">38.99s</td>
+      <td style="text-align: right"><strong>0.0086</strong></td>
+      <td style="text-align: right"><strong>0.0820</strong></td>
+      <td style="text-align: right">0.1893</td>
+    </tr>
+    <tr>
+      <td>FNO-2D</td>
+      <td style="text-align: right">414,517</td>
+      <td style="text-align: right">127.80s</td>
+      <td style="text-align: right">0.0128</td>
+      <td style="text-align: right">0.0973</td>
+      <td style="text-align: right"><strong>0.1556</strong></td>
+    </tr>
+    <tr>
+      <td>U-Net</td>
+      <td style="text-align: right">24,950,491</td>
+      <td style="text-align: right">48.67s</td>
+      <td style="text-align: right">0.0245</td>
+      <td style="text-align: right">0.1190</td>
+      <td style="text-align: right">0.1982</td>
+    </tr>
+    <tr>
+      <td>TF-Net</td>
+      <td style="text-align: right">7,451,724</td>
+      <td style="text-align: right">47.21s</td>
+      <td style="text-align: right">0.0225</td>
+      <td style="text-align: right">0.1168</td>
+      <td style="text-align: right">0.2268</td>
+    </tr>
+    <tr>
+      <td>ResNet</td>
+      <td style="text-align: right">266,641</td>
+      <td style="text-align: right">78.47s</td>
+      <td style="text-align: right">0.0701</td>
+      <td style="text-align: right">0.2311</td>
+      <td style="text-align: right">0.2753</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/img/fourier_ns1e4.png" alt="Navier-Skotes Equation" width="700px" /></p>
+
+<p>Benchmarks for time-dependent problems (Navier-Stokes):</p>
+<ul>
+  <li>ResNet: 18 layers of 2-d convolution with residual connections.</li>
+  <li>U-Net: A popular choice for image-to-image regression tasks consisting of four blocks with 2-d convolutions and deconvolutions.</li>
+  <li>TF-Net: A network designed for learning turbulent flows based on a combination of spatial and temporal convolutions.</li>
+  <li>FNO-2d: 2-d Fourier neural operator with an RNN structure in time.</li>
+  <li>FNO-3d: 3-d Fourier neural operator that directly convolves in space-time.</li>
+</ul>
+
+<p>The FNO-3D has the best performance 
+when there is sufficient data 
+(<script type="math/tex">\nu=1\mathrm{e}{-3}, N=1000</script> and <script type="math/tex">\nu=1\mathrm{e}{-4}, N=10000</script>). 
+For the configurations where the amount of data is insufficient 
+(<script type="math/tex">\nu=1\mathrm{e}{-4}, N=1000</script> and <script type="math/tex">\nu=1\mathrm{e}{-5}, N=1000</script>), 
+all methods have <script type="math/tex">>15\%</script> error with FNO-2D achieving the lowest. 
+Note that we only present results for spatial resolution <script type="math/tex">64 \times 64</script>
+since all benchmarks we compare against are designed for this resolution. 
+Increasing it degrades their performance while FNO achieves the same errors.</p>
+
+<p>FNO-2D, U-Net, TF-Net, and ResNet all use 2D-convolution in the spatial domain 
+and recurrently propagate in the time domain (2D+RNN). 
+On the other hand, FNO-3D performs convolution in space-time.</p>
+
+<h4 id="4-bayesian-inverse-problem">4. Bayesian Inverse Problem</h4>
+
+<p>In this experiment, we use a function space Markov chain Monte Carlo (MCMC) method 
+to draw samples from the posterior distribution of the initial vorticity 
+in Navier-Stokes given sparse, noisy observations at time <script type="math/tex">T=50</script>. 
+We compare the Fourier neural operator acting as a surrogate model 
+with the traditional solvers used to generate our train-test data (both run on GPU).
+We generate 25,000 samples from the posterior (with a 5,000 sample burn-in period), 
+requiring 30,000 evaluations of the forward operator.</p>
+
+<p><img src="/assets/img/fourier_bayesian.png" alt="Bayesian inverse problem" width="700px" /></p>
+
+<p>The top left panel shows the true initial vorticity while the bottom left panel shows 
+the true observed vorticity at <script type="math/tex">T=50</script> with black dots indicating 
+the locations of the observation points placed on a <script type="math/tex">7 \times 7</script> grid. 
+The top middle panel shows the posterior mean of the initial vorticity 
+given the noisy observations estimated with MCMC using the traditional solver, 
+while the top right panel shows the same thing but using FNO as a surrogate model. 
+The bottom middle and right panels show the vorticity at <script type="math/tex">T=50</script> 
+when the respective approximate posterior means are used as initial conditions.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<ul>
+  <li>We propose a neural operator based on Fourier Transformation. 
+It is the first work that learns the resolution-invariant solution operator 
+for the family of Navier-Stokes equation in the turbulent regime, 
+where previous graph-based neural operators do not converge.</li>
+  <li>By construction, the method shares the same learned network parameters 
+irrespective of the dis- cretization used on the input and output spaces. 
+It can do zero-shot super-resolution: trained on a lower resolution 
+directly evaluated on a higher resolution.</li>
+  <li>The proposed method consistently outperforms all existing deep learning methods for parametric PDEs. 
+It achieves error rates that are <script type="math/tex">30\%</script> lower on Burgers’ Equation, 
+<script type="math/tex">60\%</script> lower on Darcy Flow, and <script type="math/tex">30\%</script> lower on Navier Stokes 
+(turbulent regime with Reynolds number <script type="math/tex">10000</script>).</li>
+  <li>On a <script type="math/tex">256 \times 256</script> grid, 
+the Fourier neural operator has an inference time of only <script type="math/tex">0.005</script> 
+compared to the <script type="math/tex">2.2s</script> of the pseudo-spectral method used to solve Navier-Stokes.</li>
+</ul>
+
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer>
+
+  <div class="wrapper">
+    &copy; Copyright 2021 Zongyi Li.
+    Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+
+    
+  </div>
+
+</footer>
+
+
+    <!-- Load jQuery -->
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<!-- Load Common JS -->
+<script src="/assets/js/common.js"></script>
+
+
+<!-- Load KaTeX -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+<script src="/assets/js/katex.js"></script>
+
+
+
+
+<!-- Include custom icon fonts -->
+<link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/assets/css/academicons.min.css">
+
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-XXXXXXXXX', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+  </body>
+
+</html>
