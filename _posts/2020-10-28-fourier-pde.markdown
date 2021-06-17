@@ -11,7 +11,8 @@ description: A newly proposed neural operator based on Fourier transformation.
 >up to 1000x faster than traditional solvers. 
 >Also check out the [paper](https://arxiv.org/abs/2010.08895), 
 > [code](https://github.com/zongyi-li/fourier_neural_operator),
->and [article](https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/).
+> [article](https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/),
+> and [project page](/neural-operator).
 
 ![Navier-Skotes Equation](/assets/img/ns_sr_v1e-4_labelled.gif){: width="700px"}
 

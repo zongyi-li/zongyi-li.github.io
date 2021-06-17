@@ -1,9 +1,13 @@
 ---
 layout: page
 permalink: /teaching/
-title: teaching
+title: Teaching
 description: 
 ---
+
+#### Teaching assistant at Caltech:
+
+###### CS 165: Foundations of Machine Learning and Statistical Inference (Winter 2021, Head TA)
 
 #### Teaching assistant at WashU:
 
