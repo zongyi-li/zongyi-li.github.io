@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Zongyi Li">
+    <meta name="generator" content="Hugo 0.83.1">
+    <title>Neural Operator</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+  </head>
+  <body>
+    
+<!--<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">About</h4>
+          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Follow on Twitter</a></li>
+            <li><a href="#" class="text-white">Like on Facebook</a></li>
+            <li><a href="#" class="text-white">Email me</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>Album</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+-->
+<main>
+
+  <section class="py-5 container">
+    <div class="row py-lg-5">
+      <div class="col-lg-10 col-md-12 mx-auto text-center">
+        <h1 class="fw-light">Neural Operator</h1>
+        <p class="lead text-muted"> Zongyi Li, Nikola Kovachki, Kamyar Azizzadenesheli, Burigede Liu, <br> Kaushik Bhattacharya, Andrew Stuart, Anima Anandkumar </p>
+        <img src="img/ns_sr_v1e-4_labelled.gif"  class="img-fluid" alt="...">
+<!--        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>-->
+      </div>
+      <div class="col-lg-10 col-md-12 mx-auto">
+        <br><br>
+        <h3>Abstract</h3>
+        <p> 
+The classical development of neural networks has primarily focused on learning mappings between finite dimensional Euclidean spaces or finite sets. We propose a generalization of neural networks tailored to learn operators mapping between infinite dimensional function spaces. We formulate the approximation of operators by composition of a class of linear integral operators and nonlinear activation functions, so that the composed operator can approximate complex nonlinear operators. We prove a universal approximation theorem for our construction. The proposed neural operators are resolution-invariant: they share the same network parameters between different discretization of the underlying function spaces and can be used for zero-shot super-resolutions. Numerically, the proposed models show superior performance compared to existing machine learning based methodologies on Burgers' equation, Darcy flow, and the Navier-Stokes equation, while being several order of magnitude faster compared to conventional PDE solvers.
+        </p>
+      </div>
+      
+      <div class="col-lg-10 col-md-12 mx-auto">
+        <p>
+          <b>Papers: </b><a href="https://arxiv.org/abs/2010.08895">[FNO]</a>, <a href="https://arxiv.org/abs/2010.08895">[GNO]</a>, <a href="https://arxiv.org/abs/2010.08895">[MGNO]</a>, <a href="https://arxiv.org/abs/2106.06898">[MNO]</a> <br>
+          <b>Code: </b><a href="https://github.com/zongyi-li/fourier_neural_operator">[FNO]</a>, <a href="https://github.com/zongyi-li/graph-pde">[GNO+MGNO]</a><br>
+          <b>Blog posts: </b><a href="https://zongyi-li.github.io/blog/2020/fourier-pde">[FNO]</a>, <a href="https://zongyi-li.github.io/blog/2020/graph-pde">[GNO]</a><br>
+          <b>Media coverage: </b><a href="https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/">[MIT Tech Review]</a>,
+                              <a href="https://www.quantamagazine.org/new-neural-networks-solve-hardest-equations-faster-than-ever-20210419/">[Quanta Magezine]</a>,
+                              <a href="https://towardsdatascience.com/ai-has-unlocked-a-key-scientific-hurdle-in-predicting-our-world-5343b4ed136e">[Towards Data Science]</a>,
+                              <a href="https://medium.com/swlh/artificial-intelligence-can-now-solve-a-mathematical-problem-that-can-make-researchers-life-easier-9602c869128">[Medium]</a><br>
+          <b>Talks/Videos: </b><a href="https://www.youtube.com/watch?v=Bd4KvlmGbY4">[U Washington]</a>
+                         <a href="https://www.youtube.com/watch?v=0Ve9xwNJO2o">[U Toronto]</a>
+                        <a href="https://www.cmu.edu/aced/sciML.html">[CMU]</a>
+        </p>
+      </div>
+    </div>
+  </section>
+  
+    <div class="album py-5  bg-light">
+    <div class="container">
+      <div class="col-lg-10 col-md-12 mx-auto">
+        <h3>Model</h3>
+        <div class="text-center">
+        <img class="img-fluid" src="img/fourier_full_arch5.png" class="rounded mx-auto d-block" >
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div class="album py-5">
+    <div class="container">
+      <div class="col-lg-10 col-md-12 mx-auto">
+        <h3>Results of Navier-Stokes Equation</h3>
+        <br>
+        <p class="lead text-muted"> We consider the 2-d Navier-Stokes equation for a viscous, 
+incompressible fluid in vorticity form on the unit torus. </p>
+        
+        <h4> 1. Supervise Learning </h4>
+        <p class="lead text-muted">In this experiment, we use neural operators to learn the operator mapping from the vorticity of the first time 10 time steps
+to that up to a later time step.</p>
+        <img class="img-fluid" src="img/fourier_ns1e4.png" class="rounded mx-auto d-block" >
+        <p class="lead text-muted"><br>FNO achieves better accuracy compared to CNN-based methods.
+            Further, it is capable of the zero-shot super-resolution.
+            It is trained on 64x64x20 resolution and evaluated on 256x256x80 resolution, in both space and time. </p>
+        
+        <h4> 2. Bayesian Inverse Probelm</h4>
+        <p class="lead text-muted"> We use a function space Markov chain Monte Carlo (MCMC) method
+to draw samples from the posterior distribution of the initial vorticity 
+in Navier-Stokes given sparse, noisy observations at a later time step. </p>
+        <img class="img-fluid" src="img/fourier_bayesian.png" class="rounded mx-auto d-block">
+        <p class="lead text-muted"><br>We generate 25,000 samples from the posterior (with a 5,000 sample burn-in period), 
+requiring 30,000 evaluations of the forward operator. In sharp contrast, FNO takes 0.005s to evaluate a single instance while the traditional solver, after
+being optimized to use the largest possible internal time-step which does not lead to blow-up, takes
+2.2s.</p>
+        
+        <h4> 3. Physics-Informed Setting </h4>
+        <p class="lead text-muted"> When the equation is available, we can use the physics-informed loss to solve the equation</p>
+        <img class="img-fluid" src="img/pino-re500.gif" class="rounded mx-auto d-block">
+        <p class="lead text-muted"><br> We propose the pre-train and test-time optimize scheme. During pre-train, we learn an operator from data.
+        During the test-time optimization, we solve the equation using PINN loss.</p>
+        
+        
+        <h4> 4. Kolmogorov Flows </h4>
+        <p class="lead text-muted"> The Kolmogorov Flow is a chaotic system, which is intrinsically instable.
+            Smaller errors will accumulate and make the simulation diverge from the truth. </p>
+        <img class="img-fluid" src="img/KF-Attractor.png" class="rounded mx-auto d-block">
+        <p class="lead text-muted"><br> We take a new perspective:
+            we predict long-time trajectories that, while eventually diverging from the truth,
+            still preserve the same orbit (attractor) of the system and its statistical properties. </p>
+        
+      </div>
+    </div>
+  </div>
+  
+
+</main>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>
