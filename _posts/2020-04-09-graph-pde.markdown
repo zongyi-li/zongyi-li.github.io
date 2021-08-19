@@ -334,7 +334,7 @@ and learn the operator $$\mathcal{F}: a \mapsto u$$.
 
 To show the generalization property, we train the graph kernel network 
 with nodes sampled from the resolution $$ s \times s$$ 
-and test on another resolution $$s \times s$$ .
+and test on another resolution $$s' \times s'$$ .
 
 | Resolutions |      s'=61      |  s'=121 | s'=241 |
 |----------|:--------------|:------|:-----|
