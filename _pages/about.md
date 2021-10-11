@@ -13,10 +13,10 @@ news: False
 social: False
 ---
 
-I am a second-year PhD student advised by [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima) 
+I am a third-year PhD student advised by [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima) 
 in the [CMS department](href="http://cms.caltech.edu) at Caltech. 
 I have a broad interest in machine learning, theoretical computer science, and applied math.
-Recently, I have been working on developing deep learning methods for partial differential equations. 
+Recently, I have been working on developing deep learning methods [(neural operators)](/neural-operator) for partial differential equations. 
 I am fortunate to be supported by the Kortschak Scholars Program.
 
 I was an undergrad at Washington University in St. Louis (2015-2019), 
