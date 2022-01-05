@@ -70,42 +70,52 @@
 <main>
 
   <section class="py-5 container">
-    <div class="row py-lg-5">
+    <!--<div class="row py-lg-5">-->
       <div class="col-lg-10 col-md-12 mx-auto text-center">
         <h1 class="fw-light">Neural Operator</h1>
           <br><br>
         <!--<p class="lead text-muted"> Zongyi Li, Nikola Kovachki, Kamyar Azizzadenesheli, Burigede Liu, <br> Kaushik Bhattacharya, Andrew Stuart, Anima Anandkumar </p>-->
-        <img src="img/ns_sr_v1e-4_labelled.gif"  class="img-fluid" alt="...">
+        <img src="img/FNO-demo.gif"  class="img-fluid" alt="...">
 <!--        <p>
           <a href="#" class="btn btn-primary my-2">Main call to action</a>
           <a href="#" class="btn btn-secondary my-2">Secondary action</a>
         </p>-->
       </div>
-      <div class="col-lg-10 col-md-12 mx-auto">
+      <div class="col-lg-8 col-md-10 mx-auto">
         <br><br>
 <!--        <h3>Abstract</h3>-->
         <p> 
-The classical development of neural networks has primarily focused on learning mappings between finite dimensional Euclidean spaces or finite sets. We propose a generalization of neural networks tailored to learn operators mapping between infinite dimensional function spaces. We formulate the approximation of operators by composition of a class of linear integral operators and nonlinear activation functions, so that the composed operator can approximate complex nonlinear operators.
+The classical development of neural networks has primarily focused on learning mappings between
+            finite dimensional Euclidean spaces or finite sets. We propose a generalization of neural networks
+            tailored to learn operators mapping between infinite dimensional function spaces.
+            We formulate the approximation of operators by composition of a class of linear integral operators
+            and nonlinear activation functions, so that the composed operator can approximate complex nonlinear operators.
+            The fourier neural operator model has shown state of the art performance in learning turbulent Navier-Stokes equation,
+            as well as promising applications in weather forecast, CO2 migration, and computer vision.
         </p>
       </div>
-      
-      <div class="col-lg-10 col-md-12 mx-auto">
+  <!--  </div> -->
+  </section>
+
+    <div class="album py-5  bg-light">
+    <div class="container">
+      <div class="col-lg-8 col-md-10 mx-auto">
         <p>
             <h3>Related works</h3>
           <b>Models and architectures: </b><a href="https://arxiv.org/abs/2111.03794">[Physics-informed neural operator]</a>,
           <a href="https://arxiv.org/abs/2010.08895">[Fourier neural operator]</a>, <a href="https://arxiv.org/abs/2111.13587">[FNO-Transformer]</a>, <a href="https://arxiv.org/abs/2005.03180">[Model Reduction (PCA)]</a>,
-          <a href="https://arxiv.org/abs/2010.08895">[Graph neural operator]</a>, <a href="https://arxiv.org/abs/2010.08895">[Mutlipole graph neural operator]</a>,
-          <a href="https://arxiv.org/abs/2109.13459">[Multi-Wavelet neural operator]</a>, <a href="https://arxiv.org/abs/2105.14995">[Galerkin transformer]</a> <br>
+          <a href="https://arxiv.org/abs/2003.03485">[Graph neural operator]</a>, <a href="https://arxiv.org/abs/2006.09535">[Mutlipole graph neural operator]</a>,
+          <a href="https://arxiv.org/abs/2109.13459">[Multi-Wavelet neural operator (Gupta et. al.)]</a>, <a href="https://arxiv.org/abs/2105.14995">[Galerkin transformer (Cao)]</a> <br>
 
             <b>Applications: </b><a href="https://www.biorxiv.org/content/10.1101/2021.10.09.463779v1">[Cryo-EM / SARS-CoV-2]</a>,
             <a href="https://arxiv.org/abs/2109.03697">[CO2 migration]</a>,
             <a href="https://arxiv.org/abs/2102.07256">[Crystal plasticity]</a>, <a href="https://arxiv.org/abs/2108.05421">[Seismic wave]</a>,
-            <a href="https://arxiv.org/abs/2106.06898">[Kolmogorov flow]</a>, <a href="https://arxiv.org/abs/2110.10249">[Stochastic flow]</a>,
-            <a href="https://arxiv.org/abs/2110.07100">[Coastal floods]</a>, <a href="https://arxiv.org/abs/2108.09374">[Wave equation]</a>,
-            <a href="https://arxiv.org/abs/2111.04941">[PDE control]</a>, <a href="https://arxiv.org/abs/2111.10262">[Composites curing]</a>.
+            <a href="https://arxiv.org/abs/2106.06898">[Kolmogorov flow]</a>, <a href="https://arxiv.org/abs/2110.10249">[Stochastic flow (Salvi et. al.)]</a>,
+            <a href="https://arxiv.org/abs/2110.07100">[Coastal floods (Jiang et. al.)]</a>, <a href="https://arxiv.org/abs/2108.09374">[Wave equation (Guan et. al.)]</a>,
+            <a href="https://arxiv.org/abs/2111.04941">[PDE control (Hwang et. al.)]</a>, <a href="https://arxiv.org/abs/2111.10262">[Composites curing (Chen et. al.)]</a>.
           <br>
 
-            <b>Approximation theory: </b><a href="https://arxiv.org/abs/2108.08481">[Neural operator]</a>,<a href="https://arxiv.org/abs/2107.07562">[Fourier neural operator]</a><br><br>
+            <b>Approximation theory: </b><a href="https://arxiv.org/abs/2108.08481">[Neural operator]</a>, <a href="https://arxiv.org/abs/2107.07562">[Fourier neural operator]</a><br><br>
 
             <h3>Other resources</h3>
             <b>Code: </b><a href="https://github.com/zongyi-li/fourier_neural_operator">[Fourier neural operator]</a>, <a href="https://github.com/devzhk/PINO">[Physics-informed neural operator]</a>, <a href="https://github.com/zongyi-li/graph-pde">[Graph neural operator]</a>, <a href="https://github.com/foldfelis/NeuralOperators.jl">[Fourier neural operator (Julia)]</a><br>
@@ -126,12 +136,12 @@ The classical development of neural networks has primarily focused on learning m
                         <a href="https://www.cmu.edu/aced/sciML.html">[CMU]</a>
         </p>
       </div>
-    </div>
-  </section>
-  
-    <div class="album py-5  bg-light">
+        </div>
+       </div>
+
+    <div class="album py-5">
     <div class="container">
-      <div class="col-lg-10 col-md-12 mx-auto">
+      <div class="col-lg-8 col-md-10 mx-auto">
         <h3>Model</h3>
         <div class="text-center">
         <img class="img-fluid" src="img/fourier_full_arch5.png" class="rounded mx-auto d-block" >
@@ -140,48 +150,48 @@ The classical development of neural networks has primarily focused on learning m
     </div>
   </div>
     
-  <div class="album py-5">
+  <div class="album py-5 bg-light">
     <div class="container">
-      <div class="col-lg-10 col-md-12 mx-auto">
+      <div class="col-lg-8 col-md-10 mx-auto">
         <h2>Results of neural operators</h2>
         <br>
         
         <h4> 1. Supervise Learning </h4>
-        <p class="lead text-muted"> We consider the 2-d Navier-Stokes equation for a viscous,
+        <p> We consider the 2-d Navier-Stokes equation for a viscous,
 incompressible fluid in vorticity form on the unit torus. In this experiment, we use neural operators to learn the operator mapping from the vorticity of the first time 10 time steps
 to that up to a later time step.</p>
         <img class="img-fluid" src="img/fourier_ns1e4.png" class="rounded mx-auto d-block" >
-        <p class="lead text-muted"><br>FNO achieves better accuracy compared to CNN-based methods.
+        <p><br>FNO achieves better accuracy compared to CNN-based methods.
             Further, it is capable of the zero-shot super-resolution.
             It is trained on 64x64x20 resolution and evaluated on 256x256x80 resolution, in both space and time. </p>
-        
+        <br>
         <h4> 2. Inverse Problem</h4>
-        <p class="lead text-muted"> We use a function space Markov chain Monte Carlo (MCMC) method
+        <p> We use a function space Markov chain Monte Carlo (MCMC) method
 to draw samples from the posterior distribution of the initial vorticity 
 in Navier-Stokes given sparse, noisy observations at a later time step. </p>
         <img class="img-fluid" src="img/fourier_bayesian.png" class="rounded mx-auto d-block">
-        <p class="lead text-muted"><br>We generate 25,000 samples from the posterior (with a 5,000 sample burn-in period), 
+        <p><br>We generate 25,000 samples from the posterior (with a 5,000 sample burn-in period),
 requiring 30,000 evaluations of the forward operator. In sharp contrast, FNO takes 0.005s to evaluate a single instance while the traditional solver, after
 being optimized to use the largest possible internal time-step which does not lead to blow-up, takes
 2.2s.</p>
-        
+        <br>
         <h4> 3. Physics-Informed Neural Operator </h4>
-        <p class="lead text-muted"> When the equation is available, we can use the physics-informed loss to solve the equation.</p>
+        <p> When the equation is available, we can use the physics-informed loss to solve the equation.</p>
         <img class="img-fluid" src="img/pino-re500.gif" class="rounded mx-auto d-block">
-        <p class="lead text-muted"><br> We propose the pre-train and test-time optimize scheme. During pre-train, we learn an operator from data.
+        <p><br> We propose the pre-train and test-time optimize scheme. During pre-train, we learn an operator from data.
         During the test-time optimization, we solve the equation using PINN loss.</p>
-        
+        <br>
         
         <h4> 4. Kolmogorov Flows </h4>
-        <p class="lead text-muted"> The Kolmogorov Flow is a chaotic system, which is intrinsically instable.
+        <p> The Kolmogorov Flow is a chaotic system, which is intrinsically instable.
             Smaller errors will accumulate and make the simulation diverge from the truth. </p>
         <img class="img-fluid" src="img/KF-Attractor.png" class="rounded mx-auto d-block">
-        <p class="lead text-muted"><br> We take a new perspective:
+        <p><br> We take a new perspective:
             we predict long-time trajectories that, while eventually diverging from the truth,
             still preserve the same orbit (attractor) of the system and its statistical properties. </p>
-
+        <br>
           <h4> 5. FNO Transformer </h4>
-        <p class="lead text-muted"> Vision transformers have delivered tremendous success in representation learning. We propose Adaptive Fourier Neural Operator (AFNO) as an efficient token mixer that learns to mix in the Fourier domain.  </p>
+        <p> Vision transformers have delivered tremendous success in representation learning. We propose Adaptive Fourier Neural Operator (AFNO) as an efficient token mixer that learns to mix in the Fourier domain.  </p>
         <img class="img-fluid" src="img/mixer.jpeg" class="rounded mx-auto d-block">
 
 
