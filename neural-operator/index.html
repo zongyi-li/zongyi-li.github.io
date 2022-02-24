@@ -73,6 +73,7 @@
     <!--<div class="row py-lg-5">-->
       <div class="col-lg-10 col-md-12 mx-auto text-center">
         <h1 class="fw-light">Neural Operator</h1>
+          <h2 class="fw-light">Machine learning for scientific computing</h2>
           <br><br>
         <!--<p class="lead text-muted"> Zongyi Li, Nikola Kovachki, Kamyar Azizzadenesheli, Burigede Liu, <br> Kaushik Bhattacharya, Andrew Stuart, Anima Anandkumar </p>-->
         <img src="img/FNO-demo.gif"  class="img-fluid" alt="...">
@@ -84,14 +85,18 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <br><br>
 <!--        <h3>Abstract</h3>-->
-        <p> 
-The classical development of neural networks has primarily focused on learning mappings between
-            finite dimensional Euclidean spaces or finite sets. We propose a generalization of neural networks
-            tailored to learn operators mapping between infinite dimensional function spaces.
+        <p>
+            Problems in science and engineering involve solving partial differential equations (PDE) systems.
+            Sometimes, these PDEs are very hard. It could take traditional PDE solvers days and months to simulate some 3D fluid dynamics.
+            Data-driven, learning-based methods have the promises to solve these problems faster and more accurate.
+            The classical development of neural networks has primarily focused on learning mappings between
+            finite dimensional Euclidean spaces or finite sets. To better approximate the solution operators raised in PDEs,
+            we propose a generalization of neural networks to learn operators mapping between infinite dimensional function spaces.
             We formulate the approximation of operators by composition of a class of linear integral operators
             and nonlinear activation functions, so that the composed operator can approximate complex nonlinear operators.
-            The fourier neural operator model has shown state of the art performance in learning turbulent Navier-Stokes equation,
-            as well as promising applications in weather forecast, CO2 migration, and computer vision.
+            Such neural operators are resolution-invariant, and consequently more efficient compared to traditional neural networks.
+            Especially, the Fourier neural operator model has shown state-of-the-art performance with 1000x speedup in learning turbulent Navier-Stokes equation,
+            as well as promising applications in weather forecast and CO2 migration, as shown in the figure above.
         </p>
       </div>
   <!--  </div> -->
@@ -107,7 +112,9 @@ The classical development of neural networks has primarily focused on learning m
           <a href="https://arxiv.org/abs/2003.03485">[Graph neural operator]</a>, <a href="https://arxiv.org/abs/2006.09535">[Mutlipole graph neural operator]</a>,
           <a href="https://arxiv.org/abs/2109.13459">[Multi-Wavelet neural operator (Gupta et. al.)]</a>, <a href="https://arxiv.org/abs/2105.14995">[Galerkin transformer (Cao)]</a> <br>
 
-            <b>Applications: </b><a href="https://www.biorxiv.org/content/10.1101/2021.10.09.463779v1">[Cryo-EM / SARS-CoV-2]</a>,
+            <b>Applications: </b>
+          <a href="https://arxiv.org/abs/2202.11214">[Weather Forecast]</a>,
+          <a href="https://www.biorxiv.org/content/10.1101/2021.10.09.463779v1">[Cryo-EM / SARS-CoV-2]</a>,
             <a href="https://arxiv.org/abs/2109.03697">[CO2 migration]</a>,
             <a href="https://arxiv.org/abs/2102.07256">[Crystal plasticity]</a>, <a href="https://arxiv.org/abs/2108.05421">[Seismic wave]</a>,
             <a href="https://arxiv.org/abs/2106.06898">[Kolmogorov flow]</a>, <a href="https://arxiv.org/abs/2110.10249">[Stochastic flow (Salvi et. al.)]</a>,
@@ -117,11 +124,15 @@ The classical development of neural networks has primarily focused on learning m
 
             <b>Approximation theory: </b><a href="https://arxiv.org/abs/2108.08481">[Neural operator]</a>, <a href="https://arxiv.org/abs/2107.07562">[Fourier neural operator]</a><br><br>
 
-            <h3>Other resources</h3>
-            <b>Code: </b><a href="https://github.com/zongyi-li/fourier_neural_operator">[Fourier neural operator]</a>, <a href="https://github.com/devzhk/PINO">[Physics-informed neural operator]</a>, <a href="https://github.com/zongyi-li/graph-pde">[Graph neural operator]</a>, <a href="https://github.com/foldfelis/NeuralOperators.jl">[Fourier neural operator (Julia)]</a><br>
-
-            <b>Blog posts: </b><a href="https://zongyi-li.github.io/blog/2020/fourier-pde">[Fourier neural operator]</a>, <a href="https://zongyi-li.github.io/blog/2020/graph-pde">[Graph neural operator]</a><br>
-
+            <h3>Resources</h3>
+           <b>Blog posts: </b>
+          <a href="https://zongyi-li.github.io/blog/2020/fourier-pde">[Fourier neural operator]</a>, <a href="https://zongyi-li.github.io/blog/2020/graph-pde">[Graph neural operator]</a><br>
+            <b>Code: </b>
+          <a href="https://github.com/zongyi-li/fourier_neural_operator">[Fourier neural operator]</a>,
+          <a href="https://github.com/devzhk/PINO">[Physics-informed neural operator]</a>,
+          <a href="https://github.com/zongyi-li/graph-pde">[Graph neural operator]</a>,
+          <a href="https://github.com/foldfelis/NeuralOperators.jl">[Fourier neural operator (Julia)]</a>
+          <a href="https://github.com/CliMA/TurbulenceConvection.jl">[Clima]</a><br>
             <b>Media coverage: </b> <a href="https://www.youtube.com/watch?v=JnGPxZ9glVk">[GTC Keynote]</a>,
                                 <a href="https://www.youtube.com/watch?v=JnGPxZ9glVk">[Nvidia (Weather model)]</a>,
                                 <a href="https://www.newswise.com/coronavirus/waltzing-the-virus-study-on-covid-19-reproduction-earns-gordon-bell-special-prize-nomination/?article_id=760886">[Newswise (Covid)]</a>,
@@ -156,7 +167,7 @@ The classical development of neural networks has primarily focused on learning m
         <h2>Results of neural operators</h2>
         <br>
         
-        <h4> 1. Supervise Learning </h4>
+        <h4> 1. Supervised Learning </h4>
         <p> We consider the 2-d Navier-Stokes equation for a viscous,
 incompressible fluid in vorticity form on the unit torus. In this experiment, we use neural operators to learn the operator mapping from the vorticity of the first time 10 time steps
 to that up to a later time step.</p>
@@ -182,7 +193,7 @@ being optimized to use the largest possible internal time-step which does not le
         During the test-time optimization, we solve the equation using PINN loss.</p>
         <br>
         
-        <h4> 4. Kolmogorov Flows </h4>
+        <h4> 4. Chaotic System </h4>
         <p> The Kolmogorov Flow is a chaotic system, which is intrinsically instable.
             Smaller errors will accumulate and make the simulation diverge from the truth. </p>
         <img class="img-fluid" src="img/KF-Attractor.png" class="rounded mx-auto d-block">
