@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1925f5ba-59ea-4378-8440-3651d8682893" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Zongyi_CV_Jan2025.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/Burgers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/Darcy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/GKN_compare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/KF-Attractor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/KF-stats.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/KF-vorticity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/KS-stats.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/KS-trajectory.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/filters.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/fourier_bayesian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/fourier_error.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/fourier_layer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/fourier_layer2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/fourier_ns1e4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/grids.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/nik_kernel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/ns_sr_v1e-4_labelled.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/pdes_examples.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/pino-re500.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/plasticity.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/prof_pic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/uai_16to241.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pdf/example_pdf.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/2020/fourier-pde/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/2020/fourier-pde/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="23fUmLI2ReOnmW7pqLJRwKRp9xT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1925f5ba-59ea-4378-8440-3651d8682893" name="Changes" comment="" />
+      <created>1642124793634</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642124793634</updated>
+      <workItem from="1642124797554" duration="2481000" />
+      <workItem from="1645746392068" duration="908000" />
+      <workItem from="1645829876583" duration="94000" />
+      <workItem from="1646443992542" duration="623000" />
+      <workItem from="1648759403859" duration="604000" />
+      <workItem from="1654540675639" duration="5294000" />
+      <workItem from="1670754218756" duration="1737000" />
+      <workItem from="1671666662709" duration="2764000" />
+      <workItem from="1672720966991" duration="1806000" />
+      <workItem from="1675985658093" duration="27000" />
+      <workItem from="1675986124971" duration="2543000" />
+      <workItem from="1677464196858" duration="25000" />
+      <workItem from="1682445250785" duration="3000" />
+      <workItem from="1698791835578" duration="638000" />
+      <workItem from="1702680728711" duration="738000" />
+      <workItem from="1704703260711" duration="633000" />
+      <workItem from="1728658326204" duration="1376000" />
+      <workItem from="1731385440853" duration="6542000" />
+      <workItem from="1731873062591" duration="3659000" />
+      <workItem from="1737441366863" duration="1283000" />
+      <workItem from="1740362750558" duration="589000" />
+      <workItem from="1744338189515" duration="1269000" />
+      <workItem from="1748292188856" duration="1621000" />
+      <workItem from="1748883720364" duration="1322000" />
+      <workItem from="1749684357475" duration="152000" />
+      <workItem from="1752294295611" duration="3056000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
